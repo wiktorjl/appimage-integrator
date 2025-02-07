@@ -1,0 +1,5 @@
+watchdog
+pillow
+dbus-python
+black
+flake8
