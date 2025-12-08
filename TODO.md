@@ -1,11 +1,11 @@
 # TODO:
 
 - [x] pyproject.toml instead of requirements.txt (poetry?)
-- [x] build system? 
-- [x] black and flak8 reports?
+- [x] build system
+- [x] black and flak8 reports
 - [ ] Fail if applications or icons directories are not present
 - [ ] Add logging
-- [ ] Usage?
+- [ ] Usage
 - [ ] Use @staticmethod and @classmethod When Needed
 - [ ] Write Docstrings (PEP 257)
 - [ ] Add type hints
@@ -19,4 +19,4 @@
 - [ ] README.md
 - [ ] LICENSE
 - [ ] CONTRIBUTING.md
-- [ ] Publish using twine?
+- [ ] Publish using twine

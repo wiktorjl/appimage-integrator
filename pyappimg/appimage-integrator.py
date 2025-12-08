@@ -11,6 +11,7 @@ from PIL import Image
 from watchdog.events import FileSystemEvent, FileSystemEventHandler
 from watchdog.observers import Observer
 from watchdog.observers import Observer
+from dotenv import load_dotenv
 
 
 class FileCreatedEventHandler(FileSystemEventHandler):
@@ -64,6 +65,14 @@ class AppImageInstaller:
             ".ico",
             ".jpg",
             ".jpeg",
+            ".webp",
+            ".gif",
+            ".bmp",
+            ".tiff",
+            ".ico",
+            ".png",
+            ".svg",
+            ".xpm",
         ]
 
     def is_valid_image(self, file_path):
@@ -230,8 +239,25 @@ class AppImageInstaller:
             )
 
     def main_loop(self):
-        sleep_interval = 5  # TODO: move to config
-        dir_to_monitor = "/home/seed/apps"  # TODO: move to config
+        # Get XDG config directory, default to ~/.config
+        config_dir = os.getenv('XDG_CONFIG_HOME', os.path.expanduser('~/.config'))
+        config_path = os.path.join(config_dir, 'appimage-integrator')
+        env_file = os.path.join(config_path, '.env')
+
+        # Create config directory if it doesn't exist
+        os.makedirs(config_path, exist_ok=True)
+
+        # If .env doesn't exist, create it with default values
+        if not os.path.exists(env_file):
+            with open(env_file, 'w') as f:
+                f.write("SLEEP_INTERVAL=5\n")
+                f.write("DIR_TO_MONITOR=/home/seed/apps\n")
+
+        # Load environment variables from .env file
+        load_dotenv(env_file)
+
+        sleep_interval = int(os.getenv("SLEEP_INTERVAL", "5"))
+        dir_to_monitor = os.getenv("DIR_TO_MONITOR", "/home/seed/apps")
 
         event_handler = FileCreatedEventHandler()
         observer = Observer()
