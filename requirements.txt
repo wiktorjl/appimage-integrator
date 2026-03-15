@@ -3,3 +3,4 @@ pillow
 dbus-python
 black
 flake8
+dotenv
